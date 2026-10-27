@@ -3,128 +3,222 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>おめでとう — Вера</title>
+<title>おめでとう — Вера 💗</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
   body {
-    font-family: 'Georgia', 'Noto Serif JP', serif;
+    font-family: 'Georgia', 'Noto Serif JP', 'Yu Mincho', serif;
     min-height: 100vh;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
-    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 45%, #0f3460 100%);
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(255, 120, 160, .14) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(150, 90, 220, .14) 0%, transparent 50%),
+      linear-gradient(165deg, #20022b 0%, #1b1238 40%, #0e2044 100%);
   }
 
-  /* Падающие лепестки сакуры */
+  /* ===== Падающие лепестки сакуры ===== */
   .petal {
     position: fixed;
-    top: -40px;
-    width: 18px;
-    height: 14px;
-    background: linear-gradient(135deg, #ffd1dc, #ffb3c6);
-    border-radius: 70% 0 70% 0;
-    opacity: 0.85;
+    top: -60px;
+    width: 20px;
+    height: 15px;
+    background: linear-gradient(135deg, #ffe1e9, #ffb3c9);
+    border-radius: 72% 0 72% 0;
+    opacity: 0;
     animation: fall linear infinite;
     z-index: 1;
+    box-shadow: 0 0 6px rgba(255, 170, 200, .35);
   }
   @keyframes fall {
-    0%   { transform: translateY(-40px) rotate(0deg); opacity: 0; }
-    10%  { opacity: 0.9; }
-    100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
+    0%   { transform: translateY(-60px) rotate(0deg) translateX(0); opacity: 0; }
+    8%   { opacity: .95; }
+    50%  { transform: translateY(55vh) rotate(180deg) translateX(6vw); opacity: .85; }
+    100% { transform: translateY(112vh) rotate(360deg) translateX(-6vw); opacity: 0; }
   }
 
-  /* Луна на заднем фоне */
+  /* ===== Светящаяся луна ===== */
   .moon {
-    position: absolute;
-    top: 60px;
-    right: 100px;
-    width: 120px;
-    height: 120px;
+    position: fixed;
+    top: 48px;
+    right: 90px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #fffbe6, #ffe8a3);
-    box-shadow: 0 0 60px 20px rgba(255, 240, 180, 0.4);
-    opacity: 0.85;
-    animation: glow 4s ease-in-out infinite alternate;
+    background: radial-gradient(circle at 32% 30%, #fffdf2, #ffe9b0);
+    box-shadow: 0 0 70px 26px rgba(255, 238, 180, .45);
+    animation: glow 5s ease-in-out infinite alternate;
     z-index: 0;
   }
-  @keyframes glow { from { box-shadow: 0 0 50px 15px rgba(255,240,180,.35); } to { box-shadow: 0 0 90px 35px rgba(255,240,180,.55); } }
+  @keyframes glow {
+    from { box-shadow: 0 0 55px 18px rgba(255,238,180,.35); }
+    to   { box-shadow: 0 0 100px 40px rgba(255,238,180,.6); }
+  }
 
+  /* ===== Японские фонарики (андон) ===== */
+  .lantern {
+    position: fixed;
+    width: 16px;
+    height: 22px;
+    border-radius: 4px 4px 8px 8px;
+    background: radial-gradient(circle at 50% 30%, #ffd27a, #ff7d5c);
+    box-shadow: 0 0 22px 6px rgba(255, 140, 90, .5);
+    opacity: 0.9;
+    animation: sway 5s ease-in-out infinite alternate;
+    z-index: 1;
+  }
+  .lantern::after {
+    content: '';
+    position: absolute;
+    top: -6px; left: 50%;
+    width: 4px; height: 6px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: #5a3226;
+  }
+  @keyframes sway {
+    from { transform: rotate(-5deg); }
+    to   { transform: rotate(5deg); }
+  }
+
+  /* ===== Сердечки, плывущие вверх ===== */
+  .heart {
+    position: fixed;
+    bottom: -40px;
+    font-size: 22px;
+    color: #ff7d9d;
+    opacity: 0;
+    animation: rise linear infinite;
+    z-index: 1;
+    text-shadow: 0 0 12px rgba(255, 120, 160, .6);
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) scale(.7) rotate(0deg); opacity: 0; }
+    12%  { opacity: .85; }
+    100% { transform: translateY(-115vh) scale(1.15) rotate(20deg); opacity: 0; }
+  }
+
+  /* ===== Открытка ===== */
   .card {
     position: relative;
     z-index: 2;
     text-align: center;
-    padding: 50px 60px;
-    max-width: 640px;
-    width: 90%;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 24px;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 25px 60px rgba(0,0,0,.5);
+    padding: 56px 58px;
+    max-width: 660px;
+    width: 92%;
+    border-radius: 30px;
+    background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    border: 1px solid rgba(255, 150, 190, .28);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 60px rgba(255, 80, 140, .18), 0 30px 70px rgba(0,0,0,.5);
+    animation: cardIn 1.4s ease both;
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(30px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   .kanji {
-    font-size: 34px;
-    color: #ffb3c6;
-    letter-spacing: 12px;
-    margin-bottom: 22px;
-    animation: float 3s ease-in-out infinite;
+    font-size: 22px;
+    letter-spacing: 10px;
+    color: #ffb3c9;
+    margin-bottom: 26px;
+    animation: float 3.2s ease-in-out infinite;
   }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-11px); } }
 
   h1 {
-    font-size: 54px;
-    background: linear-gradient(90deg, #ffd1dc, #ff8fab, #ffd1dc);
+    font-size: 64px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, #ffe0ea, #ff7db0, #ff9ecb, #ffe0ea);
+    background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 18px;
-    animation: shine 3s linear infinite;
+    animation: shine 4s linear infinite;
   }
-  @keyframes shine { to { background-position: 200% center; } }
+  @keyframes shine { to { background-position: 300% center; } }
+
+  .jp-name {
+    font-size: 34px;
+    letter-spacing: 14px;
+    color: #ffcfe0;
+    margin-bottom: 4px;
+    text-shadow: 0 0 24px rgba(255, 140, 180, .5);
+  }
 
   .sub {
-    font-size: 20px;
-    color: #f4e8fa;
-    margin-bottom: 34px;
-    opacity: 0.95;
+    font-size: 19px;
+    color: #f6ecf6;
+    margin: 16px 0 30px;
+    opacity: .95;
   }
 
   .divider {
-    width: 120px;
-    height: 2px;
-    margin: 0 auto 34px;
-    background: linear-gradient(90deg, transparent, #ff8fab, transparent);
+    width: 160px;
+    height: 1px;
+    margin: 0 auto 30px;
+    background: linear-gradient(90deg, transparent, #ff8fb0, transparent);
   }
 
   .wishes {
-    font-size: 18px;
-    line-height: 1.9;
-    color: #e9dcf5;
+    font-size: 19px;
+    line-height: 2;
+    color: #f2e6f5;
+  }
+  .wishes .en {
+    font-style: italic;
+    color: #ffcfe0;
+    font-size: 16px;
   }
 
-  .torii {
-    font-size: 46px;
-    margin-top: 26px;
-    animation: bob 2.5s ease-in-out infinite;
+  .sign {
+    margin-top: 34px;
+    font-size: 16px;
+    color: #d8b4e0;
+    letter-spacing: 2px;
   }
-  @keyframes bob { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-8px);} }
 
-  /* Вспышка фейерверка */
-  .spark {
+  /* ===== Мигающая звёздочка-сердечко ===== */
+  .pulse {
+    display: inline-block;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50%     { transform: scale(1.25); opacity: .8; }
+  }
+
+  /* Светлячки */
+  .firefly {
     position: fixed;
-    width: 6px; height: 6px;
+    width: 5px; height: 5px;
     border-radius: 50%;
-    background: #fff;
-    pointer-events: none;
+    background: #fffbe6;
+    box-shadow: 0 0 14px 6px rgba(255,240,190,.5);
     opacity: 0;
-    z-index: 3;
+    animation: drift ease-in infinite;
+    z-index: 1;
+  }
+  @keyframes drift {
+    0%   { transform: translate(0,0); opacity: 0; }
+    15%  { opacity: .9; }
+    50%  { opacity: .6; }
+    100% { transform: translate(var(--dx), var(--dy)); opacity: 0; }
   }
 
-  @media (max-width: 480px) {
-    h1 { font-size: 40px; }
-    .card { padding: 36px 24px; }
+  @media (max-width: 500px) {
+    h1 { font-size: 46px; }
+    .card { padding: 40px 22px; }
+    .jp-name { letter-spacing: 8px; font-size: 27px; }
   }
 </style>
 </head>
@@ -133,52 +227,105 @@
 <div class="moon"></div>
 
 <div class="card">
-  <div class="kanji">日本 ♡</div>
-  <h1>Вера!</h1>
-  <div class="sub">お誕生日おめえとう — С днём рождения!</div>
+  <div class="kanji">愛 · 日本 · 幸せ</div>
+  <div class="jp-name">ヴェラ</div>
+  <h1>Вера</h1>
+  <div class="sub">お誕生日おめでとう、大好き 💗<br>С днём рождения, любимая!</div>
   <div class="divider"></div>
   <div class="wishes">
-    Пусть в жизни будет столько же света и красоты,<br>
-    сколько лепестков сакуры весной.<br>
-    Как гора Фудзи — стойкости и величия.<br>
-    Как море — спокойствия и глубины.<br><br>
-    幸せになってください — будьте счастливы! ✿
+    В этой бесконечной вселенной<br>
+    моё самое красивое чудо — это ты.<br>
+    Как сакура распускается к весне,<br>
+    так моё сердце оживает рядом с тобой.<br><br>
+    Пусть каждая минута твоей жизни<br>
+    будет такой же тёплой, как закат над Киото.<br>
+    Пусть рядом будет столько же любви,<br>
+    сколько звёзд на ночном небе.<br><br>
+    <span class="en">愛してる — Я люблю тебя.</span><br>
+    <span class="pulse">♥</span>
   </div>
-  <div class="torii">⛩️</div>
+  <div class="sign">⛩️ いつまでもあなたと一緒に — всегда с тобой</div>
 </div>
 
 <script>
-  // Лепестки сакуры
-  for (let i = 0; i < 26; i++) {
+  // Сакура
+  for (let i = 0; i < 32; i++) {
     const p = document.createElement('div');
     p.className = 'petal';
     p.style.left = Math.random() * 100 + 'vw';
-    p.style.animationDuration = (4 + Math.random() * 6) + 's';
-    p.style.animationDelay = (Math.random() * 9) + 's';
-    p.style.transform = 'scale(' + (0.6 + Math.random() * 0.9) + ')';
+    p.style.animationDuration = (5 + Math.random() * 8) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.transform = 'scale(' + (0.6 + Math.random() * 1) + ')';
     document.body.appendChild(p);
   }
 
-  // Фейерверки
+  // Фонарики
+  const lanterns = [
+    { l: '6%',  top: '18%', d: '5.2s' },
+    { l: '12%', top: '34%', d: '6.1s' },
+    { l: '88%', top: '22%', d: '5.6s' },
+    { l: '82%', top: '40%', d: '6.6s' },
+    { l: '94%', top: '62%', d: '5.9s' },
+    { l: '4%',  top: '66%', d: '6.3s' }
+  ];
+  lanterns.forEach(o => {
+    const l = document.createElement('div');
+    l.className = 'lantern';
+    l.style.left = o.l;
+    l.style.top = o.top;
+    l.style.animationDuration = o.d;
+    document.body.appendChild(l);
+  });
+
+  // Сердечки
+  for (let i = 0; i < 18; i++) {
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.textContent = Math.random() > .5 ? '♥' : '💗';
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.animationDuration = (6 + Math.random() * 7) + 's';
+    h.style.animationDelay = (Math.random() * 8) + 's';
+    h.style.fontSize = (14 + Math.random() * 22) + 'px';
+    document.body.appendChild(h);
+  }
+
+  // Светлячки
+  for (let i = 0; i < 14; i++) {
+    const f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.left = Math.random() * 100 + 'vw';
+    f.style.top = Math.random() * 100 + 'vh';
+    f.style.setProperty('--dx', (Math.random() * 200 - 100) + 'px');
+    f.style.setProperty('--dy', (Math.random() * 160 - 80) + 'px');
+    f.style.animationDuration = (4 + Math.random() * 6) + 's';
+    f.style.animationDelay = (Math.random() * 5) + 's';
+    document.body.appendChild(f);
+  }
+
+  // Романтичный фейерверк
   function firework() {
     const sp = document.createElement('div');
     sp.className = 'spark';
-    const colors = ['#ffd1dc', '#ff8fab', '#fff', '#ffb3c6', '#ffd700', '#c084fc'];
-    sp.style.background = colors[Math.floor(Math.random() * colors.length)];
+    sp.style.background = ['#ff9ecb', '#ffd1dc', '#fff', '#ffb3c9', '#ffd700', '#e08cff'][Math.floor(Math.random() * 6)];
     sp.style.left = Math.random() * 100 + 'vw';
-    sp.style.top = Math.random() * 60 + 'vh';
-    sp.style.boxShadow = '0 0 12px 4px currentColor';
+    sp.style.top = Math.random() * 55 + 'vh';
+    sp.style.boxShadow = '0 0 14px 5px currentColor';
     document.body.appendChild(sp);
     const d = Math.random() * 20 + 20;
     sp.animate([
-      { transform: 'scale(0.3)', opacity: 0 },
+      { transform: 'scale(0.2)', opacity: 0 },
       { transform: 'scale(1)', opacity: 1 },
-      { transform: 'scale(2.2)', opacity: 0 }
+      { transform: 'scale(2.4)', opacity: 0 }
     ], { duration: d * 100, iterations: 1 });
     setTimeout(() => sp.remove(), d * 120);
   }
-  setInterval(firework, 700);
+  for (let i = 0; i < 12; i++) setTimeout(firework, i * 350);
+  setInterval(firework, 900);
 </script>
+
+<style>
+  .spark { position: fixed; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; opacity: 0; z-index: 3; }
+</style>
 
 </body>
 </html>
